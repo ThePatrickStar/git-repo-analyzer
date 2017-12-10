@@ -1,16 +1,13 @@
 from utils import *
-
-
-def parse_params():
-    pass
+from args import ArgParser
 
 
 def main():
-    parse_params()
-    warn("warn")
-    info("info")
-    danger("danger")
-    ok("ok")
+    parser = ArgParser(description='Analyze a target git repository.')
+    parser.add_argument('target_path', help='Path to the target repository.')
+
+    args = parser.parse_args()
+    # TODO: possibly check the validity of the target path here
 
 
 if __name__ == '__main__':
