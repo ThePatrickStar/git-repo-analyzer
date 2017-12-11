@@ -1,4 +1,9 @@
 from git import Repo
+import difflib
+from git.compat import (
+    defenc,
+    PY3
+)
 import re
 
 from utils import *
@@ -23,7 +28,9 @@ class Repository:
 
         commits = list(self.repo.iter_commits(branch_name))
 
-        for commit in commits:
+        commits_no = len(commits)
+
+        for counter, commit in enumerate(commits):
 
             matched = False
             for keyword in keywords:
@@ -35,5 +42,11 @@ class Repository:
 
             if matched:
                 info(commit.message)
+                # we are looping from the newest commit to the oldest
+                if counter < commits_no - 1:
+                    diffs = commit.diff(commits[counter+1], create_patch=True)
+                    for diff in diffs:
+                        ok(diff.diff.decode(defenc))
+
             else:
                 warn(commit.message)
