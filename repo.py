@@ -56,6 +56,10 @@ class Repository:
                         # ok(diff.diff.decode(defenc))
 
                 commit_dict = {
+                    'id': str(len(commit_dicts)),
+                    'binsha': str(commit),
+                    'committed_datetime': str(commit.committed_datetime),
+                    'committer': str(commit.committer),
                     'msg': str(commit.message),
                     'diffs': diff_list,
                 }

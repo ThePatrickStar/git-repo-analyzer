@@ -16,20 +16,29 @@ def generate_commit_list(commits):
             {
                 'BACKEND': 'django.template.backends.django.DjangoTemplates',
                 'DIRS': [os.path.join(os.path.dirname(os.path.realpath(__file__)), 'templates'), ],
-                # 'APP_DIRS': True,
+                'APP_DIRS': False,
+                'OPTIONS': {
+                    'context_processors': [
+                        'django.template.context_processors.debug',
+                        'django.template.context_processors.request',
+                        'django.contrib.auth.context_processors.auth',
+                        'django.contrib.messages.context_processors.messages',
+                        'django.core.context_processors.static',
+                    ],
+                },
             },
         ]
     )
 
     django.setup()
 
-    danger(os.path.join(os.path.dirname(os.path.realpath(__file__)), 'templates'))
+    # danger(os.path.join(os.path.dirname(os.path.realpath(__file__)), 'templates'))
 
     context = {
         'commits': commits
     }
-
-    print render(None, 'commit_list.html', context)
+    danger(context)
+    # print render(None, 'commit_list.html', context)
 
     with open('temp.html', 'w') as output_file:
         output_file.write(render_to_string('commit_list.html', context))

@@ -1,0 +1,119 @@
+<div class="card mx-auto">
+    <div class="card-block">
+        <div class="row" style="margin-bottom: 1rem">
+            <div class="col-md-6 col-8 align-self-center">
+                <h5 class="card-title align-middle text-megna">Commit {{commit.binsha}}</h5>
+            </div>
+        </div>
+        <div class="row ">
+            <div class="col-4 align-self-center">
+                <strong>Committer</strong>
+            </div>
+            <div class="col-8 align-self-center">
+                {{commit.committer}}
+            </div>
+        </div>
+        <div class="row ">
+            <div class="col-4 align-self-center">
+                <strong>Committed Datetime</strong>
+            </div>
+            <div class="col-8 align-self-center">
+                {{commit.committed_datetime}}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-4 align-self-center">
+                <strong>Message</strong><br/>
+            </div>
+            <div class="col-8 align-self-center">
+                {{commit.msg}}
+            </div>
+        </div>
+        <button  type="button" data-toggle="collapse" data-target="#div_hidden_data{{commit.id}}" aria-expanded="false" aria-controls="div_hidden_data{{commit.id}}" class="btn btn-outline-primary btn-block" role="button" style="margin-bottom: 1rem">
+            <i class="fa fa-list-alt"></i>
+            Toggle Diffs
+        </button >
+	    <div  class="collapse" id="div_hidden_data{{commit.id}}">
+            <div class="row text-info">
+                <div class="col-4 align-self-center">
+                    <strong>Average speed</strong>
+                </div>
+                <div class="col-8 align-self-center">
+                    <span id="span_avg_speed">{{lstat.exec_stat.avg_speed}}</span>/s
+                </div>
+            </div>
+            <div class="row ">
+                <div class="col-4 align-self-center">
+                    <strong>Total execs</strong>
+                </div>
+                <div class="col-8 align-self-center">
+                    <span id="span_total_execs">{{lstat.exec_stat.total_execs}}</span>
+                </div>
+            </div>
+            <div class="row text-warning">
+                <div class="col-4 align-self-center">
+                    <strong>Total timeout</strong>
+                </div>
+                <div class="col-8 align-self-center">
+                    <span id="span_total_timeout">{{lstat.tmout_stat.total}}</span>
+                </div>
+            </div>
+            <div class="row text-danger">
+                <div class="col-4 align-self-center">
+                    <strong>Total crash</strong>
+                </div>
+                <div class="col-8 align-self-center">
+                    <span id="span_total_crash">{{lstat.crash_stat.total}}</span>
+                </div>
+            </div>
+            <div class="row ">
+                <div class="col-4 align-self-center">
+                    <strong>New coverage entries</strong>
+                </div>
+                <div class="col-8 align-self-center">
+                    <span id="span_new_cov">{{lstat.q_stat.new_cov_entries}}</span>
+                </div>
+            </div>
+            <div class="row ">
+                <div class="col-4 align-self-center">
+                    <strong>Favored entries</strong>
+                </div>
+                <div class="col-8 align-self-center">
+                    <span id="span_favored">{{lstat.q_stat.favored}}</span>
+                </div>
+            </div>
+            <div class="row ">
+                <div class="col-4 align-self-center">
+                    <strong>Not fuzzed entries</strong>
+                </div>
+                <div class="col-8 align-self-center">
+                    <span id="span_not_fuzzed">{{lstat.q_stat.not_fuzzed}}</span>
+                </div>
+            </div>
+            <div class="row ">
+                <div class="col-4 align-self-center">
+                    <strong>Variable behavior entries</strong>
+                </div>
+                <div class="col-8 align-self-center">
+                    <span id="span_var_behavior">{{lstat.q_stat.variable_entries}}</span>
+                </div>
+            </div>
+            <div class="row ">
+                <div class="col-4 align-self-center">
+                    <strong>Current trace count</strong>
+                </div>
+                <div class="col-8 align-self-center">
+                    <span id="span_current_trace_no">{{lstat.trace_stat.cur_traced}}</span>
+                </div>
+            </div>
+            <div class="row ">
+                <div class="col-4 align-self-center">
+                    <strong>Total trace count</strong>
+                </div>
+                <div class="col-8 align-self-center">
+                    <span id="span_total_trace_no">{{lstat.trace_stat.total_traced}}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
