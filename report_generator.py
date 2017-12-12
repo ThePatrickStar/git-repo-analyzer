@@ -37,7 +37,8 @@ def generate_commit_list(commits):
     context = {
         'commits': commits
     }
-    danger(context)
+    danger(context['commits'][0]['diffs'][0])
+    danger(len(context['commits'][0]))
     # print render(None, 'commit_list.html', context)
 
     with open('temp.html', 'w') as output_file:

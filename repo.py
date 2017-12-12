@@ -51,7 +51,17 @@ class Repository:
                 if counter < commits_no - 1:
                     diffs = commit.diff(commits[counter+1], create_patch=True)
                     for diff in diffs:
-                        diff_list.append(str(diff))
+                        added_file = ''
+                        if diff.a_path is not None:
+                            added_file = '+++ '+diff.a_path+'\\n'
+                        deleted_file = ''
+                        if diff.b_path is not None:
+                            deleted_file = '--- '+diff.b_path+'\\n'
+                        content = deleted_file+added_file+str(diff.diff).replace("'", '"').replace('\n', '\\n')
+                        diff_list.append({
+                            'id': str(len(diff_list)),
+                            'content': content,
+                        })
                         # danger(diff)
                         # ok(diff.diff.decode(defenc))
 
@@ -63,6 +73,8 @@ class Repository:
                     'msg': str(commit.message),
                     'diffs': diff_list,
                 }
+                # danger(commit_dict['diffs'])
+                # danger(len(commit_dict['diffs']))
                 commit_dicts.append(commit_dict)
 
             else:
