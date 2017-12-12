@@ -44,7 +44,6 @@
                         <div id="div_diff_{{commit.id}}_{{diff.id}}">
                             {{diff.content}}
                         </div>
-                        <br>
                         {% endfor %}
                     <!--</div>-->
                 </div>
@@ -63,12 +62,16 @@
 {% block js_code %}
     <script type="text/javascript">
         $(document).ready(function() {
-            var configure = {inputFormat: 'diff', showFiles: true, matching: 'lines'};
+            var configure = {inputFormat: 'diff', showFiles: true, matching: 'lines', outputFormat: 'side-by-side'};
             {% for commit in commits %}
                 {% for diff in commit.diffs %}
                     var diff_str = '{{diff.content}}';
-                    var output = Diff2Html.getPrettyHtml(diff_str, configure);
-                    $('#div_diff_'+{{commit.id}}+'_'+{{diff.id}}).html(output);
+//                    var output = Diff2Html.getPrettyHtml(diff_str, configure);
+//                    $('#div_diff_'+{{commit.id}}+'_'+{{diff.id}}).html(output);
+                    var diff2htmlUi = new Diff2HtmlUI({diff: diff_str});
+                    diff2htmlUi.draw('#div_diff_'+{{commit.id}}+'_'+{{diff.id}}, configure);
+                    // diff2htmlUi.highlightCode('#div_diff_'+{{commit.id}}+'_'+{{diff.id}});
+//                    diff2htmlUi.fileListCloseable('#div_diff_'+{{commit.id}}+'_'+{{diff.id}}, false);
                 {% endfor %}
             {% endfor %}
             // var lineDiffExample = "" +
