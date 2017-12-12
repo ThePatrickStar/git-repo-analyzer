@@ -11,7 +11,7 @@ def main():
     parser.add_argument('target_path', help='Path to the target repository.')
 
     args = parser.parse_args()
-    print args
+    # print args
     # TODO: possibly check the validity of the target path here
 
     repo = Repo(args.target_path)
