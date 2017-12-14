@@ -57,25 +57,30 @@ class Repository:
                         deleted_file = ''
                         if diff.b_path is not None:
                             deleted_file = '--- '+diff.b_path+'\\n'
-                        content = deleted_file+added_file+str(diff.diff).replace("'", '"').replace('\n', '\\n')
-                        diff_list.append({
-                            'id': str(len(diff_list)),
-                            'content': content,
-                        })
+                        try:
+                            content = deleted_file+added_file+diff.diff.encode('utf-8').replace("'", '"').replace('\n', '\\n')
+                            diff_list.append({
+                                'id': str(len(diff_list)),
+                                'content': content,
+                            })
+                        except (UnicodeDecodeError, UnicodeEncodeError) as e:
+                            danger(e)
                         # danger(diff)
                         # ok(diff.diff.decode(defenc))
-
-                commit_dict = {
-                    'id': str(len(commit_dicts)),
-                    'binsha': str(commit),
-                    'committed_datetime': str(commit.committed_datetime),
-                    'committer': str(commit.committer),
-                    'msg': str(commit.message),
-                    'diffs': diff_list,
-                }
-                # danger(commit_dict['diffs'])
-                # danger(len(commit_dict['diffs']))
-                commit_dicts.append(commit_dict)
+                try:
+                    commit_dict = {
+                        'id': str(len(commit_dicts)),
+                        'binsha': str(commit),
+                        'committed_datetime': str(commit.committed_datetime),
+                        'committer': str(commit.committer),
+                        'msg': str(commit.message),
+                        'diffs': diff_list,
+                    }
+                    # danger(commit_dict['diffs'])
+                    # danger(len(commit_dict['diffs']))
+                    commit_dicts.append(commit_dict)
+                except (UnicodeEncodeError, UnicodeDecodeError) as e:
+                    danger(e)
 
             else:
                 warn(commit.message)
